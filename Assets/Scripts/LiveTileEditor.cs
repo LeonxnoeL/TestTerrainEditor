@@ -17,6 +17,11 @@ public class LiveTileEditor : MonoBehaviour
         {
             SpawnTile(GetWorldToCellPosition(gridCursor.position));
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            RemoveTile(GetWorldToCellPosition(gridCursor.position));
+        }
     }
 
     Vector3Int GetWorldToCellPosition(Vector3 worldPosition)
@@ -40,6 +45,15 @@ public class LiveTileEditor : MonoBehaviour
 
     void RemoveTile(Vector3Int cellPosition)
     {
+        for(int i = maxHeight; i > 0; i--)
+        {
+            Vector3Int checkPos = new Vector3Int(cellPosition.x, cellPosition.y, i);
 
+            if (tileMap.HasTile(checkPos))
+            {
+                tileMap.SetTile(checkPos, null);
+                break;
+            }
+        }
     }
 }
